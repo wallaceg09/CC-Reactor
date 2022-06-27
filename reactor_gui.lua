@@ -78,7 +78,7 @@ window:addComponent(txUI.Button:new({ x = 1; y = 1; w = 1; h = 1; action = (func
     self.parent:close()
 end); textColor = colors.red; bgColor = window.tlColor; text = "X" }))
 
-local dbg = txUI.Label:new({ x = 1; y = 10; w = w; text = "Debug", textAlign = "left" })
+dbg = txUI.Label:new({ x = 1; y = 10; w = w; text = "Debug", textAlign = "left" })
 window:addComponent(dbg)
 
 temp_tbl = setup_temp()
