@@ -6,19 +6,6 @@ local window = txUI.Window:new({ w = w, h = h; })
 
 local reactor = peripheral.find("fissionReactorLogicAdapter")
 
-txUI.Controller:addWindow(window)
-txUI.Controller.prototype.useNative = false
-
-window:setTitleLabel(txUI.Label:new({ text = "Demo"; textColor = colors.white; textAlign = "right" }))
-window:addComponent(txUI.Button:new({ x = 1; y = 1; w = 1; h = 1; action = (function(self)
-    self.parent:close()
-end); textColor = colors.red; bgColor = window.tlColor; text = "X" }))
-
-local dbg = txUI.Label:new({ x = 1; y = 10; w = w; text = "Debug", textAlign = "left" })
-window:addComponent(dbg)
-
-temp_tbl = setup_temp()
-
 function setup_temp()
     window:addComponent(txUI.Label:new(
             { x = 1;
@@ -70,16 +57,30 @@ function app_update(self, eventTbl)
     dbg.text = eventTbl[1]
 end
 
-txUI.Controller.prototype.appUpdate = app_update
-
 function tick()
     while true do
         os.sleep(5)
         os.queueEvent("ui_update")
     end
 end
+
 function start_update()
     txUI.Controller:startUpdateCycle()
 end
+
+txUI.Controller.prototype.appUpdate = app_update
+
+txUI.Controller:addWindow(window)
+txUI.Controller.prototype.useNative = false
+
+window:setTitleLabel(txUI.Label:new({ text = "Demo"; textColor = colors.white; textAlign = "right" }))
+window:addComponent(txUI.Button:new({ x = 1; y = 1; w = 1; h = 1; action = (function(self)
+    self.parent:close()
+end); textColor = colors.red; bgColor = window.tlColor; text = "X" }))
+
+local dbg = txUI.Label:new({ x = 1; y = 10; w = w; text = "Debug", textAlign = "left" })
+window:addComponent(dbg)
+
+temp_tbl = setup_temp()
 
 parallel.waitForAll(tick, start_update)
