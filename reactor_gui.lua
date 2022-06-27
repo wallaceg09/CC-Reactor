@@ -5,6 +5,18 @@ local w, h = term.getSize()
 local window = txUI.Window:new({ w = w, h = h; })
 
 local reactor = peripheral.find("fissionReactorLogicAdapter")
+local active = reactor.getStatus()
+
+function get_activate_button_text()
+	local text = ""
+	if active then
+		text = "SCRAM!"
+	else
+		text = "Activate"
+	end
+	
+	return text
+end
 
 function setup_temp()
     window:addComponent(txUI.Label:new(
@@ -47,6 +59,10 @@ function update_temp(reactor_dat)
 
     temp_celcius = reactor_dat.temp - 273.15
     temp_tbl.value_label.text = string.format("%dc", temp_celcius)
+	
+	if temp_perc_100 > 75 then
+		reactor.scram()
+	end
 end
 
 function app_update(self, eventTbl)
@@ -82,5 +98,22 @@ dbg = txUI.Label:new({ x = 1; y = 10; w = w; text = "Debug", textAlign = "left" 
 window:addComponent(dbg)
 
 temp_tbl = setup_temp()
+local activate_button = txUI.Button:new({
+	x=w-12,
+	y=2,
+	w=10,
+	text = get_activate_button_text(),
+	action = function(self)
+		if active then
+			reactor.scram()
+		else 
+			reactor.activate()
+		end
+		
+		active = not active
+	end
+		
+})
+window:addComponent(activate_button)
 
 parallel.waitForAll(tick, start_update)
