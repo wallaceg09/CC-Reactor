@@ -9,11 +9,18 @@ end
 function update_file(content, filename)
 	print(string.format("Updating %s.", filename))
 	local bkup_filename = string.format("%s.%s", filename, "bkup")
-	fs.move(filename, bkup_filename)
+	
+	if fs.exists(filename) then
+		fs.move(filename, bkup_filename)
+	end
+	
 	local new_file = fs.open(filename, "w")
 	new_file.write(content, filename)
 	new_file.close()
-	fs.delete(bkup_filename)
+	
+	if fs.exists(bkup_filename) then
+		fs.delete(bkup_filename)
+	end
 end
 
 local username = "wallaceg09"
