@@ -21,3 +21,9 @@ function poll_reactor(reactor)
         max_temp = reactor.getHeatCapacity()
     }
 end
+
+-- TODO: Support multiple reactors
+function get_reactor()
+	local reactor = peripheral.find("fissionReactorLogicAdapter")
+	return reactor
+end
