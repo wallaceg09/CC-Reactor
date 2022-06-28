@@ -39,6 +39,14 @@ reactor_gui_text = get_github_content(
     "reactor_gui.lua"
 )
 
+reactor_watcher_text = get_github_content(
+    username,
+    repo,
+    branch,
+    "reactor_watcher.lua"
+)
+
 update_file(pull_reactor_files_text, "pull_reactor_files.lua")
 update_file(reactor_text, "reactor.lua")
 update_file(reactor_gui_text, "reactor_gui.lua")
+update_file(reactor_watcher_text, "reactor_watcher.lua")
