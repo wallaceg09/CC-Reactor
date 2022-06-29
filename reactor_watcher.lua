@@ -1,11 +1,11 @@
 require("reactor")
 
-local reactor = get_reactor()
-
-local min_coolant_threshold = 0.5
+local min_coolant_threshold = 0.9
 local max_heated_coolant_threshold = 0.5
 local max_waste_threshold = 0.5
 local max_damage_threshold = 0.1
+
+local reactor = get_reactor()
 
 while true do
 	local reactor_dat = poll_reactor(reactor)
@@ -42,5 +42,5 @@ while true do
 	end
 	print("====")
 	
-	sleep(2)
+	sleep(1)
 end
