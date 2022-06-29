@@ -4,6 +4,7 @@ require("reactor")
 local w, h = term.getSize()
 local window = txUI.Window:new({ w = w, h = h; })
 
+-- FIXME: I think this reactor should be changed, does it conflict with the "require(reactor)"?
 local reactor = peripheral.find("fissionReactorLogicAdapter")
 local active = reactor.getStatus()
 
